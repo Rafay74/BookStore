@@ -1,19 +1,25 @@
-import { useState } from 'react'
-import './App.css'
+import React from 'react'
+import { Routes, Route, Navigate } from 'react-router-dom'
+import { Toaster } from 'react-hot-toast'
 import Home from './pages/home/Home'
-import Course from './pages/home/Courses'
-import { Routes, Route } from 'react-router-dom'
+import Courses from './pages/home/Courses'
 import Signup from './components/Signup'
-function App() {
+import { useAuth } from './context/Authprovider'
 
+function App() {
+  const [authUser, setAuthUser] = useAuth()
+  console.log(authUser)
   return (
     <>
-      <Routes>
-        <Route path="/" element={<Home />} />
-        <Route path="/courses" element={<Course />} />
-        <Route path="/signup" element={<Signup />} />
+      <div>
+        <Routes>
+          <Route path="/" element={<Home />} />
+          <Route path="/courses" element={authUser ? <Courses /> : <Navigate to="/signup" />} />
+          <Route path="/signup" element={<Signup />} />
+        </Routes>
+        <Toaster />
 
-      </Routes>
+      </div>
     </>
   )
 }
