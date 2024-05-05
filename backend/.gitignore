@@ -22,7 +22,7 @@ lerna-debug.log*
 /.idea/
 
 # Ignore environment files
-.env*
+.env
 !.env.example
 
 # Ignore dependency directories
